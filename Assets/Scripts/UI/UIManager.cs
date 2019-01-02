@@ -11,6 +11,8 @@ public class UIManager
     Dictionary<object, MenuBase> m_Prefabs = new Dictionary<object, MenuBase>();
     MenuBase m_CurrentMenu;
 
+    bool m_Initialized;
+
     public UIManager()
     {
         ServiceLocator.Register(this);
@@ -25,10 +27,14 @@ public class UIManager
 
         var camera = ServiceLocator.Get<CameraManager>().Main;
         m_Canvas.worldCamera = camera;
+
+        m_Initialized = true;
     }
 
     public void GoToMenu<T>() where T : MenuBase
     {
+        if (!m_Initialized) return;
+
         var menu = GameObject.Instantiate(GetMenu<T>());
         menu.transform.SetParent(m_Canvas.transform);
         var rtf = menu.GetComponent<RectTransform>();
@@ -42,6 +48,7 @@ public class UIManager
 
     public void DestroyMenu(MenuBase menu)
     {
+        if (!m_Initialized) return;
         GameObject.Destroy(menu.gameObject);
     }
 
