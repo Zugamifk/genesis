@@ -7,9 +7,11 @@ public class TextureGenerator
         ServiceLocator.Register(this);
     }
 
-    public Texture2D GetTexture(TextureDrawer drawer)
+    public Texture2D GetTexture(ITextureDrawer drawer)
     {
-        var tex = new Texture2D(drawer.Width, drawer.Height, TextureFormat.ARGB32, false);
+        drawer.Build();
+
+        var tex = new Texture2D(drawer.Width, drawer.Height, TextureFormat.RGBA32, false);
         var data = tex.GetRawTextureData<Color32>();
         int index = 0;
         for (int y = 0; y < drawer.Height; y++)

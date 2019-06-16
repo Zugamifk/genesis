@@ -2,13 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TextureDrawer
+public interface ITextureDrawer
 {
-    public int Width { get; set; }
-    public int Height { get; set; }
+    int Width { get; set; }
+    int Height { get; set; }
 
-    public virtual Color32 GetPixel(int x, int y)
-    {
-        return Color.white;
-    }
+    void Build();
+    Color32 GetPixel(int x, int y);
 }

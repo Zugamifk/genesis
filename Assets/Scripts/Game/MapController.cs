@@ -17,5 +17,7 @@ public class MapController
     public void Initialize()
     {
         m_MapViewController = GameObject.Instantiate(Resources.Load<MapViewController>(k_PrefabFolder + "Grid"));
+
+        ServiceLocator.Get<MouseInputController>();
     }
 }
